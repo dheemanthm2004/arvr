@@ -8,12 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        gray: {
+          950: "#030712",
+        },
+      },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
       },
     },
   },
   plugins: [],
 };
+
 export default config;
