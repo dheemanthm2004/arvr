@@ -1,10 +1,37 @@
+export type FrameCategory =
+  | "rectangle"
+  | "round"
+  | "oval"
+  | "wayfarer"
+  | "aviator"
+  | "rimless"
+  | "cat-eye"
+  | "oversized"
+  | "sunglasses"
+  | "transparent"
+  | "thin-metal"
+  | "thick-acetate";
+
+export type FrameColor =
+  | "black"
+  | "silver"
+  | "gold"
+  | "brown"
+  | "transparent"
+  | "blue"
+  | "matte-dark";
+
 export interface SpectacleFrame {
   id: string;
   name: string;
-  category: "rectangle" | "round" | "angular" | "rimless" | "sunglasses";
-  svgPath: string;
-  color: string;
+  category: FrameCategory;
+  color: FrameColor;
+  hexColor: string;
+  pngPath: string;
   description: string;
+  recommendedFaceShapes: FaceShape[];
+  aspectRatio?: number;   // width/height of the SVG viewBox, default 400/120 = 3.333
+  isSunglasses?: boolean;
 }
 
 export type FaceShape = "oval" | "round" | "wide" | "heart" | "unknown";

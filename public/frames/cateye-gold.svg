@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220">
+  <defs><filter id="sh" x="-15%" y="-15%" width="130%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+  </filter><linearGradient id="lensceg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgb(220,200,140)" stop-opacity="0.19"/>
+    <stop offset="50%" stop-color="rgb(220,200,140)" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="rgb(220,200,140)" stop-opacity="0.12"/>
+  </linearGradient><linearGradient id="shineceg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+    <stop offset="60%" stop-color="#fff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="frameceg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#d4a843"/>
+    <stop offset="100%" stop-color="#a07820"/>
+  </linearGradient></defs>
+  <g filter="url(#sh)">
+      <path d="M38 170 Q18 170 18 120 Q18 70 78 58 L238 48 Q270 46 268 78 Q266 128 248 170 Z" fill="url(#lensceg)"/>
+      <path d="M352 170 Q332 170 332 120 Q332 70 392 58 L552 48 Q584 46 582 78 Q580 128 562 170 Z" fill="url(#lensceg)"/>
+      <path d="M38 170 Q18 170 18 120 Q18 70 78 58 L238 48 Q270 46 268 78 Q266 128 248 170 Z" fill="none" stroke="url(#frameceg)" stroke-width="9" stroke-linejoin="round"/>
+      <path d="M352 170 Q332 170 332 120 Q332 70 392 58 L552 48 Q584 46 582 78 Q580 128 562 170 Z" fill="none" stroke="url(#frameceg)" stroke-width="9" stroke-linejoin="round"/>
+      <path d="M268 80 Q300 64 332 80" fill="none" stroke="url(#frameceg)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M18 100 Q4 102 0 110" fill="none" stroke="url(#frameceg)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M582 100 Q596 102 600 110" fill="none" stroke="url(#frameceg)" stroke-width="7" stroke-linecap="round"/>
+      <rect x="28" y="55" width="200" height="26" rx="5" fill="url(#shineceg)"/>
+      <rect x="342" y="55" width="200" height="26" rx="5" fill="url(#shineceg)"/>
+    </g>
+</svg>

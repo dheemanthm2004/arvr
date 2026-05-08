@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<defs>
+  <filter id="dstgr" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="0.8" stdDeviation="2" flood-color="#1a0a00" flood-opacity="0.3"/>
+  </filter>
+  <radialGradient id="lttgr" cx="38%" cy="32%" r="65%">
+    <stop offset="0%"   stop-color="rgb(215,205,170)" stop-opacity="0.044"/>
+    <stop offset="100%" stop-color="rgb(215,205,170)" stop-opacity="0.080"/>
+  </radialGradient>
+  <linearGradient id="lstgr" x1="15%" y1="0%" x2="85%" y2="100%">
+    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fmtgr" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#e8c96a"/>
+    <stop offset="45%"  stop-color="#c9a84c"/>
+    <stop offset="100%" stop-color="#9a7a28"/>
+  </linearGradient></defs>
+<g filter="url(#dstgr)">
+  <rect x="12" y="12" width="176" height="96" rx="4" fill="url(#lttgr)"/>
+  <rect x="212" y="12" width="176" height="96" rx="4" fill="url(#lttgr)"/>
+  <rect x="12" y="12" width="176" height="96" rx="4" fill="none" stroke="url(#fmtgr)" stroke-width="2.5"/>
+  <rect x="212" y="12" width="176" height="96" rx="4" fill="none" stroke="url(#fmtgr)" stroke-width="2.5"/>
+  <path d="M188 52 Q200 44 212 52" fill="none" stroke="url(#fmtgr)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M12 60 L0 63" fill="none" stroke="url(#fmtgr)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M388 60 L400 63" fill="none" stroke="url(#fmtgr)" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="16" y="16" width="168" height="24" rx="2" fill="url(#lstgr)"/>
+  <rect x="216" y="16" width="168" height="24" rx="2" fill="url(#lstgr)"/>
+</g>
+</svg>

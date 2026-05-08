@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220">
+  <defs><filter id="sh" x="-15%" y="-15%" width="130%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+  </filter><linearGradient id="lensosr" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgb(200,180,140)" stop-opacity="0.22"/>
+    <stop offset="50%" stop-color="rgb(200,180,140)" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="rgb(200,180,140)" stop-opacity="0.14"/>
+  </linearGradient><linearGradient id="shineosr" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+    <stop offset="60%" stop-color="#fff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="frameosr" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#7c4a1e"/>
+    <stop offset="100%" stop-color="#4a2a0a"/>
+  </linearGradient></defs>
+  <g filter="url(#sh)">
+      <rect x="14" y="42" width="256" height="136" rx="14" fill="url(#lensosr)"/>
+      <rect x="330" y="42" width="256" height="136" rx="14" fill="url(#lensosr)"/>
+      <rect x="14" y="42" width="256" height="136" rx="14" fill="none" stroke="url(#frameosr)" stroke-width="11"/>
+      <rect x="330" y="42" width="256" height="136" rx="14" fill="none" stroke="url(#frameosr)" stroke-width="11"/>
+      <path d="M270 95 Q300 72 330 95" fill="none" stroke="url(#frameosr)" stroke-width="9" stroke-linecap="round"/>
+      <path d="M14 110 Q4 112 0 120" fill="none" stroke="url(#frameosr)" stroke-width="9" stroke-linecap="round"/>
+      <path d="M586 110 Q596 112 600 120" fill="none" stroke="url(#frameosr)" stroke-width="9" stroke-linecap="round"/>
+      <rect x="26" y="50" width="232" height="32" rx="6" fill="url(#shineosr)"/>
+      <rect x="342" y="50" width="232" height="32" rx="6" fill="url(#shineosr)"/>
+    </g>
+</svg>

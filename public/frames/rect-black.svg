@@ -1,41 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220">
-  <defs>
-    <linearGradient id="frameG" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#3a3a3a"/>
-      <stop offset="40%" stop-color="#111111"/>
-      <stop offset="100%" stop-color="#1a1a1a"/>
-    </linearGradient>
-    <linearGradient id="lensG" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#b8d4f0" stop-opacity="0.18"/>
-      <stop offset="50%" stop-color="#7ab0e0" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#4a90d0" stop-opacity="0.14"/>
-    </linearGradient>
-    <linearGradient id="shineG" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.55"/>
-    </filter>
-  </defs>
-  <g filter="url(#shadow)">
-    <!-- Left lens fill -->
-    <rect x="28" y="60" width="228" height="110" rx="10" ry="10" fill="url(#lensG)"/>
-    <!-- Right lens fill -->
-    <rect x="344" y="60" width="228" height="110" rx="10" ry="10" fill="url(#lensG)"/>
-    <!-- Left frame -->
-    <rect x="28" y="60" width="228" height="110" rx="10" ry="10" fill="none" stroke="url(#frameG)" stroke-width="9"/>
-    <!-- Right frame -->
-    <rect x="344" y="60" width="228" height="110" rx="10" ry="10" fill="none" stroke="url(#frameG)" stroke-width="9"/>
-    <!-- Bridge -->
-    <path d="M256 100 Q300 78 344 100" fill="none" stroke="url(#frameG)" stroke-width="7" stroke-linecap="round"/>
-    <!-- Left temple -->
-    <path d="M28 110 Q4 112 0 118" fill="none" stroke="url(#frameG)" stroke-width="7" stroke-linecap="round"/>
-    <!-- Right temple -->
-    <path d="M572 110 Q596 112 600 118" fill="none" stroke="url(#frameG)" stroke-width="7" stroke-linecap="round"/>
-    <!-- Shine left -->
-    <rect x="38" y="66" width="208" height="30" rx="6" fill="url(#shineG)"/>
-    <!-- Shine right -->
-    <rect x="354" y="66" width="208" height="30" rx="6" fill="url(#shineG)"/>
-  </g>
+  <defs><filter id="sh" x="-15%" y="-15%" width="130%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+  </filter><linearGradient id="lensrb" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgb(184,212,240)" stop-opacity="0.19"/>
+    <stop offset="50%" stop-color="rgb(184,212,240)" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="rgb(184,212,240)" stop-opacity="0.12"/>
+  </linearGradient><linearGradient id="shinerb" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+    <stop offset="60%" stop-color="#fff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="framerb" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#3a3a3a"/>
+    <stop offset="100%" stop-color="#111"/>
+  </linearGradient></defs>
+  <g filter="url(#sh)">
+      <rect x="28" y="60" width="228" height="110" rx="10" fill="url(#lensrb)"/>
+      <rect x="344" y="60" width="228" height="110" rx="10" fill="url(#lensrb)"/>
+      <rect x="28" y="60" width="228" height="110" rx="10" fill="none" stroke="url(#framerb)" stroke-width="9"/>
+      <rect x="344" y="60" width="228" height="110" rx="10" fill="none" stroke="url(#framerb)" stroke-width="9"/>
+      <path d="M256 90 Q300 68 344 90" fill="none" stroke="url(#framerb)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M28 115 Q4 117 0 124" fill="none" stroke="url(#framerb)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M572 115 Q596 117 600 124" fill="none" stroke="url(#framerb)" stroke-width="7" stroke-linecap="round"/>
+      <rect x="38" y="66" width="208" height="28" rx="5" fill="url(#shinerb)"/>
+      <rect x="354" y="66" width="208" height="28" rx="5" fill="url(#shinerb)"/>
+    </g>
 </svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<defs>
+  <filter id="dstor" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="1.2" stdDeviation="3" flood-color="#1a0a00" flood-opacity="0.45"/>
+  </filter>
+  <radialGradient id="lttor" cx="38%" cy="32%" r="65%">
+    <stop offset="0%"   stop-color="rgb(200,185,155)" stop-opacity="0.055"/>
+    <stop offset="100%" stop-color="rgb(200,185,155)" stop-opacity="0.100"/>
+  </radialGradient>
+  <linearGradient id="lstor" x1="15%" y1="0%" x2="85%" y2="100%">
+    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fmtor" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#8b5a2b"/>
+    <stop offset="45%"  stop-color="#5c3317"/>
+    <stop offset="100%" stop-color="#3a1f0a"/>
+  </linearGradient></defs>
+<g filter="url(#dstor)">
+  <!-- Left lens fill -->
+  <rect x="12" y="8" width="176" height="104" rx="6" fill="url(#lttor)"/>
+  <!-- Right lens fill -->
+  <rect x="212" y="8" width="176" height="104" rx="6" fill="url(#lttor)"/>
+  <!-- Left frame border (filled path = realistic material) -->
+  <rect x="12" y="8" width="176" height="104" rx="6" fill="none" stroke="url(#fmtor)" stroke-width="8"/>
+  <!-- Right frame border -->
+  <rect x="212" y="8" width="176" height="104" rx="6" fill="none" stroke="url(#fmtor)" stroke-width="8"/>
+  <!-- Bridge -->
+  <path d="M188 54 Q200 44 212 54" fill="none" stroke="url(#fmtor)" stroke-width="6" stroke-linecap="round"/>
+  <!-- Left temple (tapered) -->
+  <path d="M12 58 L0 64" fill="none" stroke="url(#fmtor)" stroke-width="5.6" stroke-linecap="round"/>
+  <!-- Right temple -->
+  <path d="M388 58 L400 64" fill="none" stroke="url(#fmtor)" stroke-width="5.6" stroke-linecap="round"/>
+  <!-- Lens shine -->
+  <rect x="18" y="13" width="164" height="28.6" rx="3" fill="url(#lstor)"/>
+  <rect x="218" y="13" width="164" height="28.6" rx="3" fill="url(#lstor)"/>
+</g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<defs>
+  <filter id="dswfb" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="1.2" stdDeviation="3" flood-color="#1a0a00" flood-opacity="0.45"/>
+  </filter>
+  <radialGradient id="ltwfb" cx="38%" cy="32%" r="65%">
+    <stop offset="0%"   stop-color="rgb(185,210,235)" stop-opacity="0.055"/>
+    <stop offset="100%" stop-color="rgb(185,210,235)" stop-opacity="0.100"/>
+  </radialGradient>
+  <linearGradient id="lswfb" x1="15%" y1="0%" x2="85%" y2="100%">
+    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fmwfb" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#3d3d3d"/>
+    <stop offset="45%"  stop-color="#1a1a1a"/>
+    <stop offset="100%" stop-color="#0d0d0d"/>
+  </linearGradient></defs>
+<g filter="url(#dswfb)">
+  <path d="M8 32 L192 32 Q198 32 196 60 L182 88 Q180 90 176 90 L24 90 Q20 90 18 88 L4 60 Q2 32 8 32 Z" fill="url(#ltwfb)"/>
+  <path d="M208 32 L392 32 Q398 32 396 60 L382 88 Q380 90 376 90 L224 90 Q220 90 218 88 L204 60 Q202 32 208 32 Z" fill="url(#ltwfb)"/>
+  <path d="M8 32 L192 32 Q198 32 196 60 L182 88 Q180 90 176 90 L24 90 Q20 90 18 88 L4 60 Q2 32 8 32 Z" fill="none" stroke="url(#fmwfb)" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M208 32 L392 32 Q398 32 396 60 L382 88 Q380 90 376 90 L224 90 Q220 90 218 88 L204 60 Q202 32 208 32 Z" fill="none" stroke="url(#fmwfb)" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M192 42 Q200 34 208 42" fill="none" stroke="url(#fmwfb)" stroke-width="5.6" stroke-linecap="round"/>
+  <path d="M4 60 L0 64" fill="none" stroke="url(#fmwfb)" stroke-width="5.2" stroke-linecap="round"/>
+  <path d="M396 60 L400 64" fill="none" stroke="url(#fmwfb)" stroke-width="5.2" stroke-linecap="round"/>
+  <rect x="16" y="37" width="168" height="15.400000000000002" rx="3" fill="url(#lswfb)"/>
+  <rect x="216" y="37" width="168" height="15.400000000000002" rx="3" fill="url(#lswfb)"/>
+</g>
+</svg>

@@ -1,305 +1,154 @@
-import { SpectacleFrame } from "../types";
+import { SpectacleFrame, FrameCategory, FrameColor, FaceShape } from "../types";
+import framesData from "../../public/frames/frames-metadata.json";
 
-// SVG frame definitions rendered to canvas at runtime
-export const SPECTACLE_FRAMES: SpectacleFrame[] = [
-  {
-    id: "classic-black",
-    name: "Classic Black",
-    category: "rectangle",
-    svgPath: "classic-black",
-    color: "#1a1a1a",
-    description: "Timeless rectangular black frame",
-  },
-  {
-    id: "round-gold",
-    name: "Round Gold",
-    category: "round",
-    svgPath: "round-gold",
-    color: "#c9a84c",
-    description: "Elegant round gold frame",
-  },
-  {
-    id: "angular-blue",
-    name: "Angular Blue",
-    category: "angular",
-    svgPath: "angular-blue",
-    color: "#2563eb",
-    description: "Bold angular blue frame",
-  },
-  {
-    id: "rimless",
-    name: "Rimless",
-    category: "rimless",
-    svgPath: "rimless",
-    color: "#9ca3af",
-    description: "Minimalist rimless frame",
-  },
-  {
-    id: "sunglasses",
-    name: "Aviator Sun",
-    category: "sunglasses",
-    svgPath: "sunglasses",
-    color: "#78350f",
-    description: "Classic aviator sunglasses",
-  },
-];
+export const SPECTACLE_FRAMES: SpectacleFrame[] = framesData as SpectacleFrame[];
 
-/**
- * Polyfill for roundRect on older browsers.
- */
-function roundRect(
-  ctx: CanvasRenderingContext2D,
-  x: number, y: number, w: number, h: number, r: number
-) {
-  const radius = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + w - radius, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-  ctx.lineTo(x + w, y + h - radius);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-  ctx.lineTo(x + radius, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.closePath();
+// ─── Image cache ─────────────────────────────────────────────────────────────
+const imageCache = new Map<string, HTMLImageElement>();
+
+function loadImage(src: string): Promise<HTMLImageElement> {
+  if (imageCache.has(src)) return Promise.resolve(imageCache.get(src)!);
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload  = () => { imageCache.set(src, img); resolve(img); };
+    img.onerror = reject;
+    img.src = src;
+  });
 }
 
+export function preloadFrames(frames: SpectacleFrame[]) {
+  frames.forEach(f => loadImage(f.pngPath).catch(() => {}));
+}
+
+// ─── Exponential smoothing ────────────────────────────────────────────────────
+// Two-stage: fast stage catches large movements, slow stage removes micro-jitter
+interface State { cx: number; cy: number; w: number; angle: number; }
+let prev: State | null = null;
+
+// ALPHA: 0.18 = smooth but responsive. Lower = more stable, higher = more snappy.
+const ALPHA = 0.18;
+
+function smooth(cx: number, cy: number, w: number, angle: number): State {
+  if (!prev) { prev = { cx, cy, w, angle }; return prev; }
+
+  // Angle shortest-path interpolation
+  let da = angle - prev.angle;
+  if (da >  Math.PI) da -= 2 * Math.PI;
+  if (da < -Math.PI) da += 2 * Math.PI;
+
+  prev = {
+    cx:    prev.cx    + ALPHA * (cx    - prev.cx),
+    cy:    prev.cy    + ALPHA * (cy    - prev.cy),
+    w:     prev.w     + ALPHA * (w     - prev.w),
+    angle: prev.angle + ALPHA * da,
+  };
+  return prev;
+}
+
+export function resetSmoothing() { prev = null; }
+
+// ─── Core draw ────────────────────────────────────────────────────────────────
 /**
- * Draws a spectacle frame on canvas using vector math.
- * All frames are drawn procedurally — no external image assets needed.
+ * SCALING RATIONALE
+ * -----------------
+ * The SVG viewBox is 400×120 and the frame fills it edge-to-edge (x: 0→400).
+ * The frame spans from temple to temple (x=0 to x=400 in SVG space).
+ *
+ * `width` passed in = eye-outer-corner span in canvas pixels.
+ * Real glasses are ~10–15% wider than the eye span on each side.
+ * So drawWidth = eyeSpan * FRAME_SCALE where FRAME_SCALE ≈ 1.28.
+ *
+ * This keeps frames snug to the face — never exceeding face width.
  */
+const FRAME_SCALE = 1.28;   // eye-span → frame draw width
+const DEFAULT_AR  = 400 / 120; // 3.333 — SVG aspect ratio
+
 export function drawSpectacleFrame(
   ctx: CanvasRenderingContext2D,
   frameId: string,
-  cx: number,   // center x between eyes
-  cy: number,   // center y (nose bridge level)
-  width: number, // total frame width
-  angle: number  // head tilt in radians
+  cx: number,
+  cy: number,
+  eyeSpan: number,   // distance between outer eye corners in canvas px
+  angle: number
 ): void {
+  const frame = SPECTACLE_FRAMES.find(f => f.id === frameId);
+  if (!frame) return;
+
+  const img = imageCache.get(frame.pngPath);
+  if (!img) { loadImage(frame.pngPath).catch(() => {}); return; }
+
+  const s = smooth(cx, cy, eyeSpan, angle);
+
+  const drawW = s.w * FRAME_SCALE;
+  const ar    = frame.aspectRatio ?? DEFAULT_AR;
+  const drawH = drawW / ar;
+
   ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(angle);
+  ctx.translate(s.cx, s.cy);
+  ctx.rotate(s.angle);
 
-  const hw = width / 2;
-  const lensW = hw * 0.42;
-  const lensH = lensW * 0.55;
-  const gap = hw * 0.08;
-  const lx = -(gap + lensW); // left lens center x
-  const rx = gap + lensW;    // right lens center x
-  const lensY = 0;
+  // Warm, subtle shadow — not cold blue
+  ctx.shadowColor     = "rgba(20, 10, 0, 0.30)";
+  ctx.shadowBlur      = 8;
+  ctx.shadowOffsetY   = 2;
+  ctx.shadowOffsetX   = 0;
 
-  switch (frameId) {
-    case "classic-black":
-      drawRectFrame(ctx, lx, rx, lensY, lensW, lensH, "#1a1a1a", 3.5, hw);
-      break;
-    case "round-gold":
-      drawRoundFrame(ctx, lx, rx, lensY, lensW, lensH, "#c9a84c", 3, hw);
-      break;
-    case "angular-blue":
-      drawAngularFrame(ctx, lx, rx, lensY, lensW, lensH, "#2563eb", 3.5, hw);
-      break;
-    case "rimless":
-      drawRimlessFrame(ctx, lx, rx, lensY, lensW, lensH, "#9ca3af", 1.5, hw);
-      break;
-    case "sunglasses":
-      drawAviatorFrame(ctx, lx, rx, lensY, lensW, lensH, "#78350f", 3, hw);
-      break;
-    default:
-      drawRectFrame(ctx, lx, rx, lensY, lensW, lensH, "#1a1a1a", 3.5, hw);
-  }
+  // Slight opacity reduction for natural blending with skin
+  ctx.globalAlpha = frame.isSunglasses ? 0.93 : 0.97;
+
+  // imageSmoothingQuality for anti-aliased rendering
+  ctx.imageSmoothingEnabled  = true;
+  ctx.imageSmoothingQuality  = "high";
+
+  ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
 
   ctx.restore();
 }
 
-function drawRectFrame(
-  ctx: CanvasRenderingContext2D,
-  lx: number, rx: number, ly: number,
-  lw: number, lh: number,
-  color: string, lineWidth: number, hw: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.lineJoin = "round";
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+export const FRAME_CATEGORIES: FrameCategory[] = [
+  "rectangle", "round", "wayfarer", "aviator",
+  "rimless", "sunglasses", "transparent", "thin-metal",
+];
 
-  // Left lens
-  roundRect(ctx, lx - lw, ly - lh, lw * 2, lh * 2, 4);
-  ctx.fill();
-  ctx.stroke();
+export const CATEGORY_LABELS: Record<FrameCategory, string> = {
+  "rectangle":    "Rectangle",
+  "round":        "Round",
+  "oval":         "Oval",
+  "wayfarer":     "Wayfarer",
+  "aviator":      "Aviator",
+  "rimless":      "Rimless",
+  "cat-eye":      "Cat-Eye",
+  "oversized":    "Oversized",
+  "sunglasses":   "Sunglasses",
+  "transparent":  "Clear",
+  "thin-metal":   "Thin Metal",
+  "thick-acetate":"Thick Acetate",
+};
 
-  // Right lens
-  roundRect(ctx, rx - lw, ly - lh, lw * 2, lh * 2, 4);
-  ctx.fill();
-  ctx.stroke();
+export const COLOR_HEX: Record<FrameColor, string> = {
+  black:        "#1a1a1a",
+  silver:       "#c0c0c0",
+  gold:         "#c9a84c",
+  brown:        "#5c3317",
+  transparent:  "#c8d8e8",
+  blue:         "#1e40af",
+  "matte-dark": "#2a2a2a",
+};
 
-  // Bridge
-  ctx.beginPath();
-  ctx.moveTo(lx + lw, ly - lh * 0.1);
-  ctx.quadraticCurveTo(0, ly - lh * 0.4, rx - lw, ly - lh * 0.1);
-  ctx.stroke();
-
-  // Temples
-  drawTemples(ctx, lx - lw, rx + lw, ly, lh, hw, color, lineWidth);
-}
-
-function drawRoundFrame(
-  ctx: CanvasRenderingContext2D,
-  lx: number, rx: number, ly: number,
-  lw: number, lh: number,
-  color: string, lineWidth: number, hw: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.fillStyle = "rgba(201,168,76,0.07)";
-
-  const r = Math.min(lw, lh);
-
-  ctx.beginPath();
-  ctx.ellipse(lx, ly, r, r, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.ellipse(rx, ly, r, r, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  // Bridge
-  ctx.beginPath();
-  ctx.moveTo(lx + r, ly - r * 0.1);
-  ctx.quadraticCurveTo(0, ly - r * 0.5, rx - r, ly - r * 0.1);
-  ctx.stroke();
-
-  drawTemples(ctx, lx - r, rx + r, ly, lh, hw, color, lineWidth);
-}
-
-function drawAngularFrame(
-  ctx: CanvasRenderingContext2D,
-  lx: number, rx: number, ly: number,
-  lw: number, lh: number,
-  color: string, lineWidth: number, hw: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.lineJoin = "miter";
-  ctx.fillStyle = "rgba(37,99,235,0.08)";
-
-  // Hexagonal-ish angular lens
-  const drawHex = (cx: number) => {
-    ctx.beginPath();
-    ctx.moveTo(cx - lw, ly);
-    ctx.lineTo(cx - lw * 0.5, ly - lh);
-    ctx.lineTo(cx + lw * 0.5, ly - lh);
-    ctx.lineTo(cx + lw, ly);
-    ctx.lineTo(cx + lw * 0.5, ly + lh);
-    ctx.lineTo(cx - lw * 0.5, ly + lh);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
+export function getRecommendedFrames(shape: FaceShape, frames: SpectacleFrame[]): SpectacleFrame[] {
+  const preferred: Record<FaceShape, FrameCategory[]> = {
+    oval:    ["rectangle", "round", "wayfarer", "aviator", "rimless", "transparent", "thin-metal", "sunglasses"],
+    round:   ["rectangle", "wayfarer", "thin-metal"],
+    wide:    ["rectangle", "rimless", "transparent", "thin-metal"],
+    heart:   ["rimless", "round", "aviator", "transparent", "thin-metal"],
+    unknown: ["rectangle", "round", "wayfarer"],
   };
-
-  drawHex(lx);
-  drawHex(rx);
-
-  ctx.beginPath();
-  ctx.moveTo(lx + lw, ly - lh * 0.1);
-  ctx.quadraticCurveTo(0, ly - lh * 0.5, rx - lw, ly - lh * 0.1);
-  ctx.stroke();
-
-  drawTemples(ctx, lx - lw, rx + lw, ly, lh, hw, color, lineWidth);
-}
-
-function drawRimlessFrame(
-  ctx: CanvasRenderingContext2D,
-  lx: number, rx: number, ly: number,
-  lw: number, lh: number,
-  color: string, lineWidth: number, hw: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.fillStyle = "rgba(200,200,220,0.12)";
-
-  // Just top rim
-  ctx.beginPath();
-  ctx.moveTo(lx - lw, ly - lh * 0.1);
-  ctx.quadraticCurveTo(lx, ly - lh * 1.1, lx + lw, ly - lh * 0.1);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(rx - lw, ly - lh * 0.1);
-  ctx.quadraticCurveTo(rx, ly - lh * 1.1, rx + lw, ly - lh * 0.1);
-  ctx.stroke();
-
-  // Lens fill (very subtle)
-  ctx.beginPath();
-  ctx.ellipse(lx, ly, lw, lh, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.ellipse(rx, ly, lw, lh, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Bridge
-  ctx.beginPath();
-  ctx.moveTo(lx + lw, ly - lh * 0.1);
-  ctx.quadraticCurveTo(0, ly - lh * 0.4, rx - lw, ly - lh * 0.1);
-  ctx.stroke();
-
-  drawTemples(ctx, lx - lw, rx + lw, ly, lh, hw, color, lineWidth);
-}
-
-function drawAviatorFrame(
-  ctx: CanvasRenderingContext2D,
-  lx: number, rx: number, ly: number,
-  lw: number, lh: number,
-  color: string, lineWidth: number, hw: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.fillStyle = "rgba(120,53,15,0.25)";
-
-  // Teardrop aviator shape
-  const drawAviator = (cx: number) => {
-    ctx.beginPath();
-    ctx.moveTo(cx, ly - lh * 0.9);
-    ctx.bezierCurveTo(cx + lw * 1.1, ly - lh * 0.9, cx + lw * 1.1, ly + lh * 0.9, cx, ly + lh * 1.0);
-    ctx.bezierCurveTo(cx - lw * 1.1, ly + lh * 0.9, cx - lw * 1.1, ly - lh * 0.9, cx, ly - lh * 0.9);
-    ctx.fill();
-    ctx.stroke();
-  };
-
-  drawAviator(lx);
-  drawAviator(rx);
-
-  // Bridge
-  ctx.beginPath();
-  ctx.moveTo(lx + lw * 0.9, ly - lh * 0.5);
-  ctx.quadraticCurveTo(0, ly - lh * 0.8, rx - lw * 0.9, ly - lh * 0.5);
-  ctx.stroke();
-
-  drawTemples(ctx, lx - lw, rx + lw, ly, lh, hw, color, lineWidth);
-}
-
-function drawTemples(
-  ctx: CanvasRenderingContext2D,
-  leftEdge: number, rightEdge: number,
-  ly: number, lh: number,
-  hw: number,
-  color: string, lineWidth: number
-) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth * 0.85;
-
-  // Left temple
-  ctx.beginPath();
-  ctx.moveTo(leftEdge, ly - lh * 0.1);
-  ctx.lineTo(-hw * 1.15, ly - lh * 0.05);
-  ctx.stroke();
-
-  // Right temple
-  ctx.beginPath();
-  ctx.moveTo(rightEdge, ly - lh * 0.1);
-  ctx.lineTo(hw * 1.15, ly - lh * 0.05);
-  ctx.stroke();
+  const order = preferred[shape];
+  return [...frames]
+    .sort((a, b) => {
+      const ai = order.indexOf(a.category), bi = order.indexOf(b.category);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    })
+    .slice(0, 4);
 }

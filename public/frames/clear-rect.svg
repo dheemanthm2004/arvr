@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<defs>
+  <filter id="dsclr" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="0.8" stdDeviation="2" flood-color="#1a0a00" flood-opacity="0.18"/>
+  </filter>
+  <radialGradient id="ltclr" cx="38%" cy="32%" r="65%">
+    <stop offset="0%"   stop-color="rgb(195,215,235)" stop-opacity="0.066"/>
+    <stop offset="100%" stop-color="rgb(195,215,235)" stop-opacity="0.120"/>
+  </radialGradient>
+  <linearGradient id="lsclr" x1="15%" y1="0%" x2="85%" y2="100%">
+    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="fmclr" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="rgba(200,215,230,0.85)"/>
+      <stop offset="50%"  stop-color="rgba(180,200,220,0.70)"/>
+      <stop offset="100%" stop-color="rgba(160,185,210,0.80)"/>
+    </linearGradient>
+    <linearGradient id="lsclr" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="50%"  stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient></defs>
+<g filter="url(#dsclr)">
+  <rect x="12" y="10" width="176" height="100" rx="7" fill="url(#ltclr)"/>
+  <rect x="212" y="10" width="176" height="100" rx="7" fill="url(#ltclr)"/>
+  <rect x="12" y="10" width="176" height="100" rx="7" fill="none" stroke="url(#fmclr)" stroke-width="6"/>
+  <rect x="212" y="10" width="176" height="100" rx="7" fill="none" stroke="url(#fmclr)" stroke-width="6"/>
+  <path d="M188 52 Q200 44 212 52" fill="none" stroke="url(#fmclr)" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M12 58 L0 63" fill="none" stroke="url(#fmclr)" stroke-width="4.199999999999999" stroke-linecap="round"/>
+  <path d="M388 58 L400 63" fill="none" stroke="url(#fmclr)" stroke-width="4.199999999999999" stroke-linecap="round"/>
+  <rect x="18" y="15" width="164" height="30" rx="3" fill="url(#lsclr)"/>
+  <rect x="218" y="15" width="164" height="30" rx="3" fill="url(#lsclr)"/>
+</g>
+</svg>

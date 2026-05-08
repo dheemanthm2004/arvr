@@ -1,0 +1,135 @@
+[
+  {
+    "id": "acetate-black-rect",
+    "name": "Classic Black",
+    "category": "rectangle",
+    "color": "black",
+    "hexColor": "#1a1a1a",
+    "pngPath": "/frames/acetate-black-rect.svg",
+    "description": "Timeless thick black acetate rectangle",
+    "recommendedFaceShapes": ["oval", "round", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "tortoise-rect",
+    "name": "Tortoise Shell",
+    "category": "rectangle",
+    "color": "brown",
+    "hexColor": "#5c3317",
+    "pngPath": "/frames/tortoise-rect.svg",
+    "description": "Warm dark brown tortoise acetate",
+    "recommendedFaceShapes": ["oval", "round", "wide"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "thinmetal-gold-rect",
+    "name": "Gold Metal",
+    "category": "thin-metal",
+    "color": "gold",
+    "hexColor": "#c9a84c",
+    "pngPath": "/frames/thinmetal-gold-rect.svg",
+    "description": "Refined thin gold metal rectangle",
+    "recommendedFaceShapes": ["oval", "heart", "wide"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "thinmetal-silver-rect",
+    "name": "Silver Metal",
+    "category": "thin-metal",
+    "color": "silver",
+    "hexColor": "#c0c0c0",
+    "pngPath": "/frames/thinmetal-silver-rect.svg",
+    "description": "Sleek thin silver metal rectangle",
+    "recommendedFaceShapes": ["oval", "heart", "wide"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "round-black",
+    "name": "Round Black",
+    "category": "round",
+    "color": "black",
+    "hexColor": "#1a1a1a",
+    "pngPath": "/frames/round-black.svg",
+    "description": "Premium round black acetate",
+    "recommendedFaceShapes": ["oval", "wide", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "round-gold",
+    "name": "Round Gold",
+    "category": "round",
+    "color": "gold",
+    "hexColor": "#c9a84c",
+    "pngPath": "/frames/round-gold.svg",
+    "description": "Elegant thin gold round frame",
+    "recommendedFaceShapes": ["oval", "wide", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "rimless-silver",
+    "name": "Rimless Silver",
+    "category": "rimless",
+    "color": "silver",
+    "hexColor": "#c0c0c0",
+    "pngPath": "/frames/rimless-silver.svg",
+    "description": "Ultra-light silver rimless oval",
+    "recommendedFaceShapes": ["oval", "heart", "wide"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "wayfarer-black",
+    "name": "Wayfarer Black",
+    "category": "wayfarer",
+    "color": "black",
+    "hexColor": "#1a1a1a",
+    "pngPath": "/frames/wayfarer-black.svg",
+    "description": "Iconic black wayfarer acetate",
+    "recommendedFaceShapes": ["oval", "round", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "wayfarer-tortoise",
+    "name": "Wayfarer Tortoise",
+    "category": "wayfarer",
+    "color": "brown",
+    "hexColor": "#5c3317",
+    "pngPath": "/frames/wayfarer-tortoise.svg",
+    "description": "Classic tortoise wayfarer",
+    "recommendedFaceShapes": ["oval", "round", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "aviator-gold",
+    "name": "Aviator Gold",
+    "category": "aviator",
+    "color": "gold",
+    "hexColor": "#c9a84c",
+    "pngPath": "/frames/aviator-gold.svg",
+    "description": "Classic gold double-bridge aviator",
+    "recommendedFaceShapes": ["oval", "round", "heart"],
+    "aspectRatio": 3.333
+  },
+  {
+    "id": "aviator-sun-silver",
+    "name": "Aviator Sunglasses",
+    "category": "sunglasses",
+    "color": "silver",
+    "hexColor": "#c0c0c0",
+    "pngPath": "/frames/aviator-sun-silver.svg",
+    "description": "Silver aviator with dark lens",
+    "recommendedFaceShapes": ["oval", "round", "heart"],
+    "aspectRatio": 3.333,
+    "isSunglasses": true
+  },
+  {
+    "id": "clear-rect",
+    "name": "Clear Frame",
+    "category": "transparent",
+    "color": "transparent",
+    "hexColor": "#c8d8e8",
+    "pngPath": "/frames/clear-rect.svg",
+    "description": "Modern clear transparent acetate",
+    "recommendedFaceShapes": ["oval", "round", "wide", "heart"],
+    "aspectRatio": 3.333
+  }
+]

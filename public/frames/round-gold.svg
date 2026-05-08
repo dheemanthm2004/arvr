@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<defs>
+  <filter id="dsrng" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="1.0" stdDeviation="2.5" flood-color="#1a0a00" flood-opacity="0.4"/>
+  </filter>
+  <radialGradient id="ltrng" cx="38%" cy="32%" r="65%">
+    <stop offset="0%"   stop-color="rgb(215,205,170)" stop-opacity="0.044"/>
+    <stop offset="100%" stop-color="rgb(215,205,170)" stop-opacity="0.080"/>
+  </radialGradient>
+  <linearGradient id="lsrng" x1="15%" y1="0%" x2="85%" y2="100%">
+    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="fmrng" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%"   stop-color="#e8c96a"/>
+    <stop offset="45%"  stop-color="#c9a84c"/>
+    <stop offset="100%" stop-color="#9a7a28"/>
+  </linearGradient></defs>
+<g filter="url(#dsrng)">
+  <circle cx="100" cy="60" r="46" fill="url(#ltrng)"/>
+  <circle cx="300" cy="60" r="46" fill="url(#ltrng)"/>
+  <circle cx="100" cy="60" r="46" fill="none" stroke="url(#fmrng)" stroke-width="3"/>
+  <circle cx="300" cy="60" r="46" fill="none" stroke="url(#fmrng)" stroke-width="3"/>
+  <path d="M146 48 Q200 38 254 48" fill="none" stroke="url(#fmrng)" stroke-width="2.4000000000000004" stroke-linecap="round"/>
+  <path d="M54 60 L0 63" fill="none" stroke="url(#fmrng)" stroke-width="2.25" stroke-linecap="round"/>
+  <path d="M346 60 L400 63" fill="none" stroke="url(#fmrng)" stroke-width="2.25" stroke-linecap="round"/>
+  <ellipse cx="100" cy="40.68" rx="33.12" ry="12.88" fill="url(#lsrng)"/>
+  <ellipse cx="300" cy="40.68" rx="33.12" ry="12.88" fill="url(#lsrng)"/>
+</g>
+</svg>

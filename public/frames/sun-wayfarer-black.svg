@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220">
+  <defs><filter id="sh" x="-15%" y="-15%" width="130%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+  </filter><linearGradient id="lensswb" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgb(20,20,20)" stop-opacity="1.28"/>
+    <stop offset="50%" stop-color="rgb(20,20,20)" stop-opacity="0.48"/>
+    <stop offset="100%" stop-color="rgb(20,20,20)" stop-opacity="0.80"/>
+  </linearGradient><linearGradient id="shineswb" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+    <stop offset="60%" stop-color="#fff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="frameswb" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#1a1a1a"/>
+    <stop offset="100%" stop-color="#000"/>
+  </linearGradient></defs>
+  <g filter="url(#sh)">
+      <path d="M28 55 L268 55 Q280 55 280 67 L260 165 Q260 175 248 175 L48 175 Q36 175 36 165 L16 67 Q16 55 28 55 Z" fill="url(#lensswb)"/>
+      <path d="M332 55 L572 55 Q584 55 584 67 L564 165 Q564 175 552 175 L352 175 Q340 175 340 165 L320 67 Q320 55 332 55 Z" fill="url(#lensswb)"/>
+      <path d="M28 55 L268 55 Q280 55 280 67 L260 165 Q260 175 248 175 L48 175 Q36 175 36 165 L16 67 Q16 55 28 55 Z" fill="none" stroke="url(#frameswb)" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M332 55 L572 55 Q584 55 584 67 L564 165 Q564 175 552 175 L352 175 Q340 175 340 165 L320 67 Q320 55 332 55 Z" fill="none" stroke="url(#frameswb)" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M268 88 Q300 72 332 88" fill="none" stroke="url(#frameswb)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M16 88 Q4 90 0 98" fill="none" stroke="url(#frameswb)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M584 88 Q596 90 600 98" fill="none" stroke="url(#frameswb)" stroke-width="8" stroke-linecap="round"/>
+      <rect x="38" y="62" width="200" height="28" rx="5" fill="url(#shineswb)"/>
+      <rect x="342" y="62" width="200" height="28" rx="5" fill="url(#shineswb)"/>
+    </g>
+</svg>

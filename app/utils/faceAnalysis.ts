@@ -1,4 +1,4 @@
-import { FaceMeasurements, FaceShape, LandmarkPoint, SpectacleFrame } from "../types";
+import { FaceMeasurements, FaceShape, LandmarkPoint } from "../types";
 
 // MediaPipe FaceMesh landmark indices
 export const LANDMARKS = {
@@ -64,26 +64,6 @@ export function analyzeFaceShape(
   }
 
   return { faceWidth, faceHeight, foreheadWidth, jawWidth, shape };
-}
-
-export function getRecommendedFrames(
-  shape: FaceShape,
-  frames: SpectacleFrame[]
-): SpectacleFrame[] {
-  const recommendations: Record<FaceShape, string[]> = {
-    oval: ["rectangle", "round", "angular", "rimless", "sunglasses"],
-    round: ["angular", "rectangle"],
-    wide: ["rectangle", "rimless"],
-    heart: ["rimless", "round"],
-    unknown: ["rectangle", "round"],
-  };
-  const preferred = recommendations[shape];
-  const sorted = [...frames].sort((a, b) => {
-    const ai = preferred.indexOf(a.category);
-    const bi = preferred.indexOf(b.category);
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-  return sorted.slice(0, 3);
 }
 
 export function getFaceShapeDescription(shape: FaceShape): string {
