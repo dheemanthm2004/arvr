@@ -1,33 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dsass" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="1.0" stdDeviation="2.5" flood-color="#1a0a00" flood-opacity="0.38"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#000" flood-opacity="0.45"/>
   </filter>
-  <radialGradient id="ltass" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(28,28,32)" stop-opacity="0.396"/>
-    <stop offset="100%" stop-color="rgb(28,28,32)" stop-opacity="0.720"/>
-  </radialGradient>
-  <linearGradient id="lsass" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#e8e8e8"/>
+    <stop offset="45%" stop-color="#b8b8b8"/>
+    <stop offset="100%" stop-color="#888"/>
   </linearGradient>
-  <linearGradient id="fmass" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#e8e8e8"/>
-    <stop offset="45%"  stop-color="#c0c0c0"/>
-    <stop offset="100%" stop-color="#8a8a8a"/>
-  </linearGradient></defs>
-<g filter="url(#dsass)">
-  <path d="M100 16 C188 16 190 100 120 112 Q100 116 80 112 C10 100 12 16 100 16 Z" fill="url(#ltass)"/>
-  <path d="M300 16 C388 16 390 100 320 112 Q300 116 280 112 C210 100 212 16 300 16 Z" fill="url(#ltass)"/>
-  <path d="M100 16 C188 16 190 100 120 112 Q100 116 80 112 C10 100 12 16 100 16 Z" fill="none" stroke="url(#fmass)" stroke-width="3.5"/>
-  <path d="M300 16 C388 16 390 100 320 112 Q300 116 280 112 C210 100 212 16 300 16 Z" fill="none" stroke="url(#fmass)" stroke-width="3.5"/>
-  <!-- Double bridge (aviator signature) -->
-  <path d="M188 34 Q200 24 212 34" fill="none" stroke="url(#fmass)" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M182 44 Q200 36 218 44" fill="none" stroke="url(#fmass)" stroke-width="2.4499999999999997" stroke-linecap="round"/>
-  <path d="M12 34 L0 42" fill="none" stroke="url(#fmass)" stroke-width="2.8000000000000003" stroke-linecap="round"/>
-  <path d="M388 34 L400 42" fill="none" stroke="url(#fmass)" stroke-width="2.8000000000000003" stroke-linecap="round"/>
-  <ellipse cx="100" cy="34" rx="58" ry="14" fill="url(#lsass)"/>
-  <ellipse cx="300" cy="34" rx="58" ry="14" fill="url(#lsass)"/>
+  <radialGradient id="lg" cx="35%" cy="28%" r="65%">
+    <stop offset="0%" stop-color="#2a3a4a" stop-opacity="0.72"/>
+    <stop offset="100%" stop-color="#1a2530" stop-opacity="0.85"/>
+  </radialGradient>
+  <linearGradient id="sg" x1="10%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>
+    <stop offset="50%" stop-color="#fff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<g filter="url(#sh)">
+  <path d="M152 18 C248 18 252 130 178 158 Q152 166 126 158 C52 130 56 18 152 18 Z" fill="url(#lg)"/>
+  <path d="M152 18 C248 18 252 130 178 158 Q152 166 126 158 C52 130 56 18 152 18 Z" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <path d="M448 18 C544 18 548 130 474 158 Q448 166 422 158 C348 130 352 18 448 18 Z" fill="url(#lg)"/>
+  <path d="M448 18 C544 18 548 130 474 158 Q448 166 422 158 C348 130 352 18 448 18 Z" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <path d="M248 44 Q300 32 352 44" fill="none" stroke="url(#fg)" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M240 58 Q300 48 360 58" fill="none" stroke="url(#fg)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M56 44 Q8 50 0 62" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M544 44 Q592 50 600 62" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="152" cy="42" rx="68" ry="16" fill="url(#sg)"/>
+  <ellipse cx="448" cy="42" rx="68" ry="16" fill="url(#sg)"/>
 </g>
 </svg>

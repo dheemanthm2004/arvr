@@ -47,7 +47,7 @@ export default function Hero() {
           {[
             { value: "468", label: "Face Landmarks" },
             { value: "30+", label: "FPS Real-time" },
-            { value: "5", label: "Frame Styles" },
+            { value: "12", label: "Frame Styles" },
           ].map((stat) => (
             <div key={stat.label}>
               <p className="text-2xl font-bold text-white">{stat.value}</p>

@@ -1,18 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow MediaPipe WASM files to be served correctly
+  // NOTE: Cross-Origin-Embedder-Policy is intentionally omitted.
+  // Setting require-corp breaks MediaPipe CDN assets on mobile Safari/Android
+  // because those CDN responses don't include CORP headers.
+  // MediaPipe loads fine without COEP — it does not use SharedArrayBuffer.
   async headers() {
     return [
       {
         source: "/(.*)",
         headers: [
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
         ],
       },
     ];
   },
-  // Exclude MediaPipe from server-side bundling
   webpack(config, { isServer }) {
     if (isServer) {
       config.externals = [

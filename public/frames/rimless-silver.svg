@@ -1,34 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dsrls" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="0.6" stdDeviation="1.5" flood-color="#1a0a00" flood-opacity="0.2"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.25"/>
   </filter>
-  <radialGradient id="ltrls" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(200,215,230)" stop-opacity="0.050"/>
-    <stop offset="100%" stop-color="rgb(200,215,230)" stop-opacity="0.090"/>
-  </radialGradient>
-  <linearGradient id="lsrls" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#e8e8e8"/>
+    <stop offset="45%" stop-color="#b8b8b8"/>
+    <stop offset="100%" stop-color="#888"/>
   </linearGradient>
-  <linearGradient id="fmrls" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#e8e8e8"/>
-    <stop offset="45%"  stop-color="#c0c0c0"/>
-    <stop offset="100%" stop-color="#8a8a8a"/>
-  </linearGradient></defs>
-<g filter="url(#dsrls)">
-  <ellipse cx="100" cy="60" rx="82" ry="44" fill="url(#ltrls)"/>
-  <ellipse cx="300" cy="60" rx="82" ry="44" fill="url(#ltrls)"/>
-  <!-- Only top rim for rimless look -->
-  <path d="M18 56 A82 44 0 0 1 182 56" fill="none" stroke="url(#fmrls)" stroke-width="1.8"/>
-  <path d="M218 56 A82 44 0 0 1 382 56" fill="none" stroke="url(#fmrls)" stroke-width="1.8"/>
-  <!-- Nose pads + bridge -->
-  <path d="M182 50 Q200 42 218 50" fill="none" stroke="url(#fmrls)" stroke-width="2.16" stroke-linecap="round"/>
-  <!-- Nose pad dots -->
-  <circle cx="178" cy="56" r="2.5" fill="url(#fmrls)"/>
-  <circle cx="222" cy="56" r="2.5" fill="url(#fmrls)"/>
-  <path d="M18 60 L0 63" fill="none" stroke="url(#fmrls)" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M382 60 L400 63" fill="none" stroke="url(#fmrls)" stroke-width="1.8" stroke-linecap="round"/>
+  <radialGradient id="lg" cx="35%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#d0e0f0" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#d0e0f0" stop-opacity="0.02"/>
+  </radialGradient>
+</defs>
+<g filter="url(#sh)">
+  <!-- Subtle lens fill -->
+  <ellipse cx="152" cy="90" rx="100" ry="58" fill="url(#lg)"/>
+  <ellipse cx="448" cy="90" rx="100" ry="58" fill="url(#lg)"/>
+  <!-- Top arc only (rimless) -->
+  <path d="M52 86 A100 58 0 0 1 252 86" fill="none" stroke="url(#fg)" stroke-width="2.2"/>
+  <path d="M348 86 A100 58 0 0 1 548 86" fill="none" stroke="url(#fg)" stroke-width="2.2"/>
+  <!-- Bridge -->
+  <path d="M252 74 Q300 60 348 74" fill="none" stroke="url(#fg)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Nose pads -->
+  <circle cx="246" cy="82" r="3" fill="url(#fg)"/>
+  <circle cx="354" cy="82" r="3" fill="url(#fg)"/>
+  <!-- Temples -->
+  <path d="M52 90 Q8 92 0 102" fill="none" stroke="url(#fg)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M548 90 Q592 92 600 102" fill="none" stroke="url(#fg)" stroke-width="2.2" stroke-linecap="round"/>
 </g>
 </svg>

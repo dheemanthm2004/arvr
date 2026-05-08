@@ -13,10 +13,8 @@ interface ARViewProps {
 
 type CameraStatus = "idle" | "requesting" | "active" | "error";
 
-// ─── Landmark history for temporal averaging ──────────────────────────────────
-// Average the last N raw landmark positions before passing to the smoother.
-// This removes single-frame spikes without adding visible lag.
-const HISTORY = 4;
+// Temporal history for pre-smoothing (removes single-frame spikes)
+const HISTORY = 5;
 type RawPlacement = { cx: number; cy: number; eyeSpan: number; angle: number };
 const history: RawPlacement[] = [];
 
@@ -36,11 +34,11 @@ function averagedPlacement(raw: RawPlacement): RawPlacement {
 }
 
 export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
-  const videoRef    = useRef<HTMLVideoElement>(null);
-  const canvasRef   = useRef<HTMLCanvasElement>(null);
-  const streamRef   = useRef<MediaStream | null>(null);
-  const animRef     = useRef<number>(0);
-  const meshRef     = useRef<any>(null);
+  const videoRef  = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const animRef   = useRef<number>(0);
+  const meshRef   = useRef<any>(null);
   const lastAnalRef = useRef<number>(0);
 
   const [status,   setStatus]   = useState<CameraStatus>("idle");
@@ -68,15 +66,17 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Sync canvas resolution to video
-    if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
-      canvas.width  = video.videoWidth  || 640;
-      canvas.height = video.videoHeight || 480;
+    // Sync canvas resolution to actual video dimensions
+    const vw = video.videoWidth  || 640;
+    const vh = video.videoHeight || 480;
+    if (canvas.width !== vw || canvas.height !== vh) {
+      canvas.width  = vw;
+      canvas.height = vh;
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // FPS
+    // FPS counter
     fpsRef.current.count++;
     const now = Date.now();
     if (now - fpsRef.current.last >= 1000) {
@@ -89,67 +89,74 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
     const lms: LandmarkPoint[] = results.multiFaceLandmarks[0];
     const W = canvas.width, H = canvas.height;
 
-    // Throttle face shape analysis
+    // Throttle face shape analysis to every 1.5 s
     if (now - lastAnalRef.current > 1500) {
       lastAnalRef.current = now;
       cbRef.current(analyzeFaceShape(lms, W, H));
     }
 
     // ── Key landmarks ──────────────────────────────────────────────────────
-    const lOuter = getLandmark(lms, LANDMARKS.LEFT_EYE_OUTER,  W, H);
-    const rOuter = getLandmark(lms, LANDMARKS.RIGHT_EYE_OUTER, W, H);
-    const lInner = getLandmark(lms, LANDMARKS.LEFT_EYE_INNER,  W, H);
-    const rInner = getLandmark(lms, LANDMARKS.RIGHT_EYE_INNER, W, H);
-    // Upper eyelid midpoints for vertical eye center
-    const lUpper = getLandmark(lms, 159, W, H); // left upper eyelid center
-    const rUpper = getLandmark(lms, 386, W, H); // right upper eyelid center
-    const lLower = getLandmark(lms, 145, W, H); // left lower eyelid center
-    const rLower = getLandmark(lms, 374, W, H); // right lower eyelid center
+    const lOuter  = getLandmark(lms, LANDMARKS.LEFT_EYE_OUTER,  W, H);
+    const rOuter  = getLandmark(lms, LANDMARKS.RIGHT_EYE_OUTER, W, H);
+    const lUpper  = getLandmark(lms, 159, W, H); // left upper eyelid centre
+    const rUpper  = getLandmark(lms, 386, W, H); // right upper eyelid centre
+    const lLower  = getLandmark(lms, 145, W, H); // left lower eyelid centre
+    const rLower  = getLandmark(lms, 374, W, H); // right lower eyelid centre
     const noseBridge = getLandmark(lms, LANDMARKS.NOSE_BRIDGE, W, H);
-    const noseTip    = getLandmark(lms, LANDMARKS.NOSE_TIP,    W, H);
 
-    // ── Eye span (outer corner to outer corner) ────────────────────────────
+    // ── Eye span: outer corner to outer corner ─────────────────────────────
     const eyeSpan = Math.hypot(rOuter.x - lOuter.x, rOuter.y - lOuter.y);
 
-    // ── Center X: midpoint of outer eye corners ────────────────────────────
+    // Ignore if face is too far away or not properly detected
+    if (eyeSpan < W * 0.06) return;
+
+    // ── Centre X: midpoint of outer eye corners ────────────────────────────
     const cx = (lOuter.x + rOuter.x) / 2;
 
-    // ── Head tilt: angle of the line connecting outer eye corners ──────────
+    // ── Head tilt ──────────────────────────────────────────────────────────
     const angle = Math.atan2(rOuter.y - lOuter.y, rOuter.x - lOuter.x);
 
     // ── Vertical placement ─────────────────────────────────────────────────
-    // Eye vertical center = average of upper+lower eyelid midpoints
-    const eyeCenterY = (lUpper.y + rUpper.y + lLower.y + rLower.y) / 4;
-    // Inner eye midpoint Y
-    const innerMidY  = (lInner.y + rInner.y) / 2;
-    // Nose bridge sits between eye center and nose tip
-    // Glasses sit at eye level, shifted slightly down toward nose bridge
-    // 0.0 = exactly at eye center, 1.0 = at nose bridge
-    const VERTICAL_BLEND = 0.22;
-    const cy = eyeCenterY + (noseBridge.y - eyeCenterY) * VERTICAL_BLEND;
-
-    // Sanity: ignore if eyeSpan is unrealistically small (face too far / not detected)
-    if (eyeSpan < W * 0.06) return;
+    // Eye optical centre = average of upper + lower eyelid midpoints
+    const eyeCentreY = (lUpper.y + rUpper.y + lLower.y + rLower.y) / 4;
+    // Blend 20% toward nose bridge so frame sits naturally on nose
+    const cy = eyeCentreY + (noseBridge.y - eyeCentreY) * 0.20;
 
     // ── Temporal averaging → exponential smoothing ─────────────────────────
     const avg = averagedPlacement({ cx, cy, eyeSpan, angle });
     drawSpectacleFrame(ctx, frameRef.current.id, avg.cx, avg.cy, avg.eyeSpan, avg.angle);
-
-    // Suppress unused variable warning
-    void innerMidY; void noseTip;
   }, []);
 
   const startCamera = useCallback(async () => {
     setStatus("requesting");
     setErrorMsg("");
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+      // Mobile-safe constraints: ideal resolution, fallback gracefully
+      const constraints: MediaStreamConstraints = {
+        video: {
+          facingMode: "user",
+          width:  { ideal: 1280, max: 1920 },
+          height: { ideal: 720,  max: 1080 },
+        },
         audio: false,
-      });
+      };
+
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+      } catch {
+        // Fallback: minimal constraints for older/restricted mobile browsers
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+      }
+
       streamRef.current = stream;
       const video = videoRef.current!;
       video.srcObject = stream;
+
+      // playsInline + muted required for iOS autoplay
+      video.playsInline = true;
+      video.muted = true;
+
       await video.play();
       setStatus("active");
 
@@ -160,9 +167,9 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
       });
       faceMesh.setOptions({
         maxNumFaces: 1,
-        refineLandmarks: true,   // true = more accurate eyelid landmarks
-        minDetectionConfidence: 0.65,
-        minTrackingConfidence:  0.65,
+        refineLandmarks: true,
+        minDetectionConfidence: 0.6,
+        minTrackingConfidence:  0.6,
       });
       faceMesh.onResults(processResults);
       meshRef.current = faceMesh;
@@ -178,8 +185,9 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
       const e = err as { name?: string; message?: string };
       setStatus("error");
       setErrorMsg(
-        e.name === "NotAllowedError" ? "Camera permission denied. Please allow access and refresh." :
-        e.name === "NotFoundError"   ? "No camera found on this device." :
+        e.name === "NotAllowedError"  ? "Camera permission denied. Please allow access and refresh." :
+        e.name === "NotFoundError"    ? "No camera found on this device." :
+        e.name === "NotReadableError" ? "Camera is in use by another app." :
         "Could not access camera: " + (e.message ?? "Unknown error")
       );
     }
@@ -206,6 +214,7 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
     cap.width  = video.videoWidth;
     cap.height = video.videoHeight;
     const ctx  = cap.getContext("2d")!;
+    // Mirror the video (matches CSS scaleX(-1))
     ctx.translate(cap.width, 0);
     ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0);
@@ -220,12 +229,13 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       {/* Viewport */}
-      <div className="relative w-full max-w-2xl aspect-video bg-gray-950 rounded-2xl overflow-hidden shadow-2xl border border-white/8">
+      <div className="relative w-full max-w-2xl bg-gray-950 rounded-2xl overflow-hidden shadow-2xl border border-white/8"
+           style={{ aspectRatio: "16/9" }}>
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ transform: "scaleX(-1)" }}
-          playsInline muted
+          playsInline muted autoPlay
         />
         <canvas
           ref={canvasRef}
@@ -248,7 +258,7 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
         {status === "requesting" && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-950/96 gap-3">
             <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin"/>
-            <p className="text-white/40 text-sm">Initialising AR engine...</p>
+            <p className="text-white/40 text-sm">Initialising AR engine…</p>
           </div>
         )}
 
@@ -264,17 +274,15 @@ export default function ARView({ selectedFrame, onFaceMeasured }: ARViewProps) {
 
         {status === "active" && (
           <>
-            {/* FPS — subtle */}
-            <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/40 rounded text-[10px] text-white/30 font-mono">
+            <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/40 rounded text-[10px] text-white/30 font-mono select-none">
               {fps} fps
             </div>
-            {/* Frame name */}
-            <div className="absolute top-3 right-3 px-2.5 py-1 bg-black/40 backdrop-blur-sm rounded-lg text-xs text-white/50">
+            <div className="absolute top-3 right-3 px-2.5 py-1 bg-black/40 backdrop-blur-sm rounded-lg text-xs text-white/50 select-none">
               {selectedFrame.name}
             </div>
-            {/* Face guide — very subtle */}
+            {/* Subtle face guide oval */}
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-              <div className="w-40 h-52 border border-white/10 rounded-[50%] -translate-y-2"/>
+              <div className="w-36 h-48 border border-white/10 rounded-[50%] -translate-y-2"/>
             </div>
           </>
         )}

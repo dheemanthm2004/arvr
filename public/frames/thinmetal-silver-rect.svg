@@ -1,31 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dstsr" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="0.8" stdDeviation="2" flood-color="#1a0a00" flood-opacity="0.3"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#000" flood-opacity="0.35"/>
   </filter>
-  <radialGradient id="lttsr" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(200,215,230)" stop-opacity="0.044"/>
-    <stop offset="100%" stop-color="rgb(200,215,230)" stop-opacity="0.080"/>
-  </radialGradient>
-  <linearGradient id="lstsr" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#e8e8e8"/>
+    <stop offset="45%" stop-color="#b8b8b8"/>
+    <stop offset="100%" stop-color="#888"/>
   </linearGradient>
-  <linearGradient id="fmtsr" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#e8e8e8"/>
-    <stop offset="45%"  stop-color="#c0c0c0"/>
-    <stop offset="100%" stop-color="#8a8a8a"/>
-  </linearGradient></defs>
-<g filter="url(#dstsr)">
-  <rect x="12" y="12" width="176" height="96" rx="4" fill="url(#lttsr)"/>
-  <rect x="212" y="12" width="176" height="96" rx="4" fill="url(#lttsr)"/>
-  <rect x="12" y="12" width="176" height="96" rx="4" fill="none" stroke="url(#fmtsr)" stroke-width="2.5"/>
-  <rect x="212" y="12" width="176" height="96" rx="4" fill="none" stroke="url(#fmtsr)" stroke-width="2.5"/>
-  <path d="M188 52 Q200 44 212 52" fill="none" stroke="url(#fmtsr)" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M12 60 L0 63" fill="none" stroke="url(#fmtsr)" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M388 60 L400 63" fill="none" stroke="url(#fmtsr)" stroke-width="2.5" stroke-linecap="round"/>
-  <rect x="16" y="16" width="168" height="24" rx="2" fill="url(#lstsr)"/>
-  <rect x="216" y="16" width="168" height="24" rx="2" fill="url(#lstsr)"/>
+  <radialGradient id="lg" cx="35%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#d0e0f0" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#d0e0f0" stop-opacity="0.03"/>
+  </radialGradient>
+  <linearGradient id="sg" x1="10%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.35"/>
+    <stop offset="50%" stop-color="#fff" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<g filter="url(#sh)">
+  <rect x="22" y="34" width="220" height="112" rx="6" fill="url(#lg)"/>
+  <rect x="22" y="34" width="220" height="112" rx="6" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <rect x="358" y="34" width="220" height="112" rx="6" fill="url(#lg)"/>
+  <rect x="358" y="34" width="220" height="112" rx="6" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <path d="M242 76 Q300 60 358 76" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 90 Q8 92 0 100" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M578 90 Q592 92 600 100" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <rect x="28" y="38" width="208" height="28" rx="3" fill="url(#sg)"/>
+  <rect x="364" y="38" width="208" height="28" rx="3" fill="url(#sg)"/>
 </g>
 </svg>

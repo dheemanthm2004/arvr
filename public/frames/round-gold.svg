@@ -1,31 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dsrng" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="1.0" stdDeviation="2.5" flood-color="#1a0a00" flood-opacity="0.4"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#1a0800" flood-opacity="0.40"/>
   </filter>
-  <radialGradient id="ltrng" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(215,205,170)" stop-opacity="0.044"/>
-    <stop offset="100%" stop-color="rgb(215,205,170)" stop-opacity="0.080"/>
-  </radialGradient>
-  <linearGradient id="lsrng" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#f0d070"/>
+    <stop offset="45%" stop-color="#c9a84c"/>
+    <stop offset="100%" stop-color="#9a7828"/>
   </linearGradient>
-  <linearGradient id="fmrng" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#e8c96a"/>
-    <stop offset="45%"  stop-color="#c9a84c"/>
-    <stop offset="100%" stop-color="#9a7a28"/>
-  </linearGradient></defs>
-<g filter="url(#dsrng)">
-  <circle cx="100" cy="60" r="46" fill="url(#ltrng)"/>
-  <circle cx="300" cy="60" r="46" fill="url(#ltrng)"/>
-  <circle cx="100" cy="60" r="46" fill="none" stroke="url(#fmrng)" stroke-width="3"/>
-  <circle cx="300" cy="60" r="46" fill="none" stroke="url(#fmrng)" stroke-width="3"/>
-  <path d="M146 48 Q200 38 254 48" fill="none" stroke="url(#fmrng)" stroke-width="2.4000000000000004" stroke-linecap="round"/>
-  <path d="M54 60 L0 63" fill="none" stroke="url(#fmrng)" stroke-width="2.25" stroke-linecap="round"/>
-  <path d="M346 60 L400 63" fill="none" stroke="url(#fmrng)" stroke-width="2.25" stroke-linecap="round"/>
-  <ellipse cx="100" cy="40.68" rx="33.12" ry="12.88" fill="url(#lsrng)"/>
-  <ellipse cx="300" cy="40.68" rx="33.12" ry="12.88" fill="url(#lsrng)"/>
+  <radialGradient id="lg" cx="35%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#f0d070" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#f0d070" stop-opacity="0.03"/>
+  </radialGradient>
+  <linearGradient id="sg" x1="10%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.30"/>
+    <stop offset="50%" stop-color="#fff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<g filter="url(#sh)">
+  <circle cx="152" cy="90" r="80" fill="url(#lg)"/>
+  <circle cx="152" cy="90" r="80" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <circle cx="448" cy="90" r="80" fill="url(#lg)"/>
+  <circle cx="448" cy="90" r="80" fill="none" stroke="url(#fg)" stroke-width="3.5"/>
+  <path d="M232 72 Q300 54 368 72" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M72 90 Q8 92 0 102" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M528 90 Q592 92 600 102" fill="none" stroke="url(#fg)" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="152" cy="64" rx="60" ry="16" fill="url(#sg)"/>
+  <ellipse cx="448" cy="64" rx="60" ry="16" fill="url(#sg)"/>
 </g>
 </svg>

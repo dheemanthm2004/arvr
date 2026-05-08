@@ -1,31 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dswfb" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="1.2" stdDeviation="3" flood-color="#1a0a00" flood-opacity="0.45"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.55"/>
   </filter>
-  <radialGradient id="ltwfb" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(185,210,235)" stop-opacity="0.055"/>
-    <stop offset="100%" stop-color="rgb(185,210,235)" stop-opacity="0.100"/>
-  </radialGradient>
-  <linearGradient id="lswfb" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-  </linearGradient>
-  <linearGradient id="fmwfb" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#3d3d3d"/>
-    <stop offset="45%"  stop-color="#1a1a1a"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#3d3d3d"/>
+    <stop offset="45%" stop-color="#1a1a1a"/>
     <stop offset="100%" stop-color="#0d0d0d"/>
-  </linearGradient></defs>
-<g filter="url(#dswfb)">
-  <path d="M8 32 L192 32 Q198 32 196 60 L182 88 Q180 90 176 90 L24 90 Q20 90 18 88 L4 60 Q2 32 8 32 Z" fill="url(#ltwfb)"/>
-  <path d="M208 32 L392 32 Q398 32 396 60 L382 88 Q380 90 376 90 L224 90 Q220 90 218 88 L204 60 Q202 32 208 32 Z" fill="url(#ltwfb)"/>
-  <path d="M8 32 L192 32 Q198 32 196 60 L182 88 Q180 90 176 90 L24 90 Q20 90 18 88 L4 60 Q2 32 8 32 Z" fill="none" stroke="url(#fmwfb)" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M208 32 L392 32 Q398 32 396 60 L382 88 Q380 90 376 90 L224 90 Q220 90 218 88 L204 60 Q202 32 208 32 Z" fill="none" stroke="url(#fmwfb)" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M192 42 Q200 34 208 42" fill="none" stroke="url(#fmwfb)" stroke-width="5.6" stroke-linecap="round"/>
-  <path d="M4 60 L0 64" fill="none" stroke="url(#fmwfb)" stroke-width="5.2" stroke-linecap="round"/>
-  <path d="M396 60 L400 64" fill="none" stroke="url(#fmwfb)" stroke-width="5.2" stroke-linecap="round"/>
-  <rect x="16" y="37" width="168" height="15.400000000000002" rx="3" fill="url(#lswfb)"/>
-  <rect x="216" y="37" width="168" height="15.400000000000002" rx="3" fill="url(#lswfb)"/>
+  </linearGradient>
+  <radialGradient id="lg" cx="35%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#b8d4f0" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#b8d4f0" stop-opacity="0.03"/>
+  </radialGradient>
+  <linearGradient id="sg" x1="10%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.20"/>
+    <stop offset="45%" stop-color="#fff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<g filter="url(#sh)">
+  <!-- Left wayfarer lens (trapezoid: wider top) -->
+  <path d="M14 36 L238 36 Q244 36 242 68 L226 144 Q224 148 218 148 L30 148 Q24 148 22 144 L6 68 Q4 36 14 36 Z" fill="url(#lg)"/>
+  <path d="M14 36 L238 36 Q244 36 242 68 L226 144 Q224 148 218 148 L30 148 Q24 148 22 144 L6 68 Q4 36 14 36 Z" fill="none" stroke="url(#fg)" stroke-width="10" stroke-linejoin="round"/>
+  <!-- Right wayfarer lens -->
+  <path d="M362 36 L586 36 Q592 36 594 68 L578 144 Q576 148 570 148 L382 148 Q376 148 374 144 L358 68 Q356 36 362 36 Z" fill="url(#lg)"/>
+  <path d="M362 36 L586 36 Q592 36 594 68 L578 144 Q576 148 570 148 L382 148 Q376 148 374 144 L358 68 Q356 36 362 36 Z" fill="none" stroke="url(#fg)" stroke-width="10" stroke-linejoin="round"/>
+  <!-- Bridge -->
+  <path d="M242 56 Q300 42 358 56" fill="none" stroke="url(#fg)" stroke-width="7" stroke-linecap="round"/>
+  <!-- Left temple -->
+  <path d="M14 90 Q4 92 0 102" fill="none" stroke="url(#fg)" stroke-width="7.5" stroke-linecap="round"/>
+  <!-- Right temple -->
+  <path d="M586 90 Q596 92 600 102" fill="none" stroke="url(#fg)" stroke-width="7.5" stroke-linecap="round"/>
+  <!-- Shine -->
+  <rect x="22" y="42" width="212" height="26" rx="4" fill="url(#sg)"/>
+  <rect x="366" y="42" width="212" height="26" rx="4" fill="url(#sg)"/>
 </g>
 </svg>

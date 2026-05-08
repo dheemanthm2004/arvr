@@ -1,39 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
 <defs>
-  <filter id="dstor" x="-8%" y="-12%" width="116%" height="136%" color-interpolation-filters="sRGB">
-    <feDropShadow dx="0" dy="1.2" stdDeviation="3" flood-color="#1a0a00" flood-opacity="0.45"/>
+  <filter id="sh" x="-10%" y="-15%" width="120%" height="145%">
+    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1a0800" flood-opacity="0.55"/>
   </filter>
-  <radialGradient id="lttor" cx="38%" cy="32%" r="65%">
-    <stop offset="0%"   stop-color="rgb(200,185,155)" stop-opacity="0.055"/>
-    <stop offset="100%" stop-color="rgb(200,185,155)" stop-opacity="0.100"/>
-  </radialGradient>
-  <linearGradient id="lstor" x1="15%" y1="0%" x2="85%" y2="100%">
-    <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-    <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.04"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+  <linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#7a4a1a"/>
+    <stop offset="40%" stop-color="#5c3010"/>
+    <stop offset="100%" stop-color="#3a1c06"/>
   </linearGradient>
-  <linearGradient id="fmtor" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%"   stop-color="#8b5a2b"/>
-    <stop offset="45%"  stop-color="#5c3317"/>
-    <stop offset="100%" stop-color="#3a1f0a"/>
-  </linearGradient></defs>
-<g filter="url(#dstor)">
-  <!-- Left lens fill -->
-  <rect x="12" y="8" width="176" height="104" rx="6" fill="url(#lttor)"/>
-  <!-- Right lens fill -->
-  <rect x="212" y="8" width="176" height="104" rx="6" fill="url(#lttor)"/>
-  <!-- Left frame border (filled path = realistic material) -->
-  <rect x="12" y="8" width="176" height="104" rx="6" fill="none" stroke="url(#fmtor)" stroke-width="8"/>
-  <!-- Right frame border -->
-  <rect x="212" y="8" width="176" height="104" rx="6" fill="none" stroke="url(#fmtor)" stroke-width="8"/>
-  <!-- Bridge -->
-  <path d="M188 54 Q200 44 212 54" fill="none" stroke="url(#fmtor)" stroke-width="6" stroke-linecap="round"/>
-  <!-- Left temple (tapered) -->
-  <path d="M12 58 L0 64" fill="none" stroke="url(#fmtor)" stroke-width="5.6" stroke-linecap="round"/>
-  <!-- Right temple -->
-  <path d="M388 58 L400 64" fill="none" stroke="url(#fmtor)" stroke-width="5.6" stroke-linecap="round"/>
-  <!-- Lens shine -->
-  <rect x="18" y="13" width="164" height="28.6" rx="3" fill="url(#lstor)"/>
-  <rect x="218" y="13" width="164" height="28.6" rx="3" fill="url(#lstor)"/>
+  <radialGradient id="lg" cx="35%" cy="30%" r="60%">
+    <stop offset="0%" stop-color="#d4a870" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#d4a870" stop-opacity="0.04"/>
+  </radialGradient>
+  <linearGradient id="sg" x1="10%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#fff" stop-opacity="0.20"/>
+    <stop offset="45%" stop-color="#fff" stop-opacity="0.04"/>
+    <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<g filter="url(#sh)">
+  <rect x="18" y="28" width="228" height="124" rx="8" fill="url(#lg)"/>
+  <rect x="18" y="28" width="228" height="124" rx="8" fill="none" stroke="url(#fg)" stroke-width="11"/>
+  <rect x="354" y="28" width="228" height="124" rx="8" fill="url(#lg)"/>
+  <rect x="354" y="28" width="228" height="124" rx="8" fill="none" stroke="url(#fg)" stroke-width="11"/>
+  <path d="M246 78 Q300 58 354 78" fill="none" stroke="url(#fg)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M18 90 Q6 92 0 100" fill="none" stroke="url(#fg)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M582 90 Q594 92 600 100" fill="none" stroke="url(#fg)" stroke-width="8" stroke-linecap="round"/>
+  <rect x="26" y="34" width="212" height="34" rx="4" fill="url(#sg)"/>
+  <rect x="362" y="34" width="212" height="34" rx="4" fill="url(#sg)"/>
 </g>
 </svg>
